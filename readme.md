@@ -1,5 +1,5 @@
-` Katana` is MVC/HMVC object-oriented web application development framework for any [Node.js](http://nodejs.org) samurai.<br>
-With `Katana`, you can easy and fast develop from small sites to large high performance applications.
+Katana is MVC/HMVC object-oriented web application development framework for any [Node.js](http://nodejs.org) samurai.<br>
+With Katana, you can easy and fast develop from small sites to large high performance applications.
 
 ## Installation
   
@@ -7,7 +7,7 @@ With `Katana`, you can easy and fast develop from small sites to large high perf
 
 ## Quick Start
 
-The quickest way to start is to utilize the `Katana` executable to generate an application tree:
+The quickest way to start is to utilize the Katana executable to generate an application tree:
 
     $ katana create [path]
 
