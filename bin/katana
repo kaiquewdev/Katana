@@ -1,0 +1,92 @@
+#!/usr/bin/env node
+
+var mod_root = require('path').normalize(__dirname + '/../');
+var root     = process.cwd() + '/';
+var eol      = require('os').platform() == 'win32' ? '\r\n' : '\n';
+
+var Path  = require('path');
+var mkdir = require('mkdirp');
+var copy  = require('../lib/utils').copy_dir;
+
+var App = require('commander');
+
+App.version('0.1.0');
+
+var create = App.command('create [path]')
+.description('Create default application structure and base configuration')
+.action(function(path) {
+	path = path ? Path.resolve(root, path) + '/' : root;
+	
+	App.confirm('Create application at: '+ path +' ? [Yes|No]: ', function(ok) {
+	  if (ok) {
+		  if (!Path.existsSync(path)) {
+			  mkdir.sync(path, 0755);
+		  }
+
+		  copy(mod_root + 'template', path, function(error) {
+				console.log(error ? error : 'Done!');
+				
+				var empty_paths = [path + 'application/config/production', path + 'application/models',
+				                   path + 'modules', path + 'temp', path + 'public/scripts', path + 'public/styles'];
+				
+				empty_paths.forEach(function(p) {
+					if (!Path.existsSync(p)) {
+					  mkdir.sync(p, 0777);
+				  }
+				});
+				
+				process.stdin.destroy();
+			});
+	  } else {
+		  process.stdin.destroy();
+	  }
+	});
+});
+
+App.command('install <module>')
+.description('Install Katana application module')
+.action(function(module) {
+  var version = 'last';
+  
+  var has_version = module.match(/^([\-\_a-z]+)\@([\.0-9]+)$/i);
+ 
+  if (has_version) {
+    module = has_version[1];
+    version = has_version[2];
+  }
+
+  console.log('Downloading module '+ module +' '+ version);
+});
+
+App.parse(process.argv);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

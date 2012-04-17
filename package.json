@@ -1,0 +1,42 @@
+{
+  "name": "katana",
+  "description": "HMVC object-oriented web application development framework for any Node.js samurai.",
+  "version": "0.1.0",
+  
+  "author": "Shogun <Shogun147@gmail.com> (http://github.com/Shogun147)",
+  "contributors": [ 
+    { "name": "Shogun", "email": "Shogun147@gmail.com" }
+  ],
+
+  "keywords": ["katana", "framework", "mvc", "hmvc", "oop", "router", "web", "development"],
+  
+  "homepage": "http://katanajs.com/ (comming soon)",
+
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/Shogun147/Katana.git",
+    "web": "http://github.com/Shogun147/Katana"
+  },
+
+  "bugs": {
+    "url": "https://github.com/Shogun147/Katana/issues"
+  },
+
+  "dependencies": {
+	  "mkdirp": "*", "async": "*", "joose": "*", "logme": "*", "formidable": "*",
+	  "redis": "*", "mongoose": "*", "mysql": "*", "ejs": "*", "crypto": "*",
+	  "validator": "*", "underscore": "*"
+  },
+  "devDependencies": {
+  },
+
+  "main": "./lib/katana",
+  "bin": { "katana": "./bin/katana" },
+  "scripts": {
+    
+  },
+
+  "preferGlobal": true,
+
+  "engines": { "node": "> 0.6" }
+}
