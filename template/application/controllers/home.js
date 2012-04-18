@@ -7,7 +7,7 @@ Class('Home_Controller', {
 	
 	methods: {
 		index: function(Response, Request) {
-			Response.render('index', { title: 'Katana - HMVC web application development framework.' });
+			Response.render('index', { title: 'Katana is MVC/HMVC object-oriented web application development framework for any Node.js samurai.' });
 		}
 	}
 });
