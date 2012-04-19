@@ -27,7 +27,8 @@ var create = App.command('create [path]')
 				console.log(error ? error : 'Done!');
 				
 				var empty_paths = [path + 'application/config/production', path + 'application/models',
-				                   path + 'modules', path + 'temp', path + 'public/scripts', path + 'public/styles'];
+				                   path + 'public/images', path + 'public/scripts', path + 'public/styles',
+				                   path + 'modules', path + 'temp'];
 				
 				empty_paths.forEach(function(p) {
 					if (!Path.existsSync(p)) {
