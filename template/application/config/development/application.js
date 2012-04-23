@@ -27,6 +27,10 @@ module.exports = {
 			user_id: 0,
 			last_action: 0
 		}
+	},
+	
+	multipart: {
+		
 	}
 }
 
