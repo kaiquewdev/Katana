@@ -43,7 +43,9 @@ module.exports = {
 	multipart: {
 		uploadDir: global.root + 'temp/files',
 		keepExtensions: true,
-		encoding: 'utf-8'
+		encoding: 'utf-8',
+		
+		wait_end: true
 		
 		//maxFieldsSize: 1024 * 1024 * 5
 	},
