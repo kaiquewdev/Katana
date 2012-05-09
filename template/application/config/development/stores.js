@@ -1,5 +1,5 @@
 module.exports = {
-	redis: {
+	/*redis: {
 		type: 'redis',
 		
 		host: '127.0.0.1',
@@ -49,7 +49,7 @@ module.exports = {
 		database: 'katana',
 		
 		debug: false
-	}
+	}*/
 }
 
 
