@@ -27,7 +27,7 @@ module.exports = {
 	},
 	
 	session: {
-		enabled: true,
+		enabled: false,
 		
 		key_name: 'session_id',
 		key_length: 32,
