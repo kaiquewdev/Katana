@@ -34,8 +34,7 @@ module.exports = {
 		store: 'redis',
 		
 		defaults: {
-			logget_in: false,
-			user_id: 0
+			
 		}
 	},
 	
