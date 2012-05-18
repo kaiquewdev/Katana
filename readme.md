@@ -76,10 +76,10 @@ This will set `controller=auth` and `action=login`.
 Or you may pass this request to mvc module:
 
     routes: [
-      ['account/(.*)', 'M:auth/actions/$1']
+      ['account/(.*)', '#auth/actions/$1']
     ]
 
-The `M:` prefix meen that this request will pass to `auth` module, `controller=actions` and `action=login`.
+The `#` symbol meen that this request will pass to `auth` module, `controller=actions` and `action=login`.
 
 `!important:` mvc modules may have their own routing rules.
 
