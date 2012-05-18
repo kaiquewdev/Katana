@@ -199,38 +199,38 @@ To render a view you can use a few methods:
 
 Controllers can also have their global data, which will be passed for the this.render calls:
 
-  var App = require('katana');
+    var App = require('katana');
   
-  require('joose');
+    require('joose');
   
-  Class('Home_Controller', {
-    isa: App.Controller,
+    Class('Home_Controller', {
+      isa: App.Controller,
     
-    have: {
-      // set global controller data
-      data: {
-        title: 'This is title for all pages for this controller',
-        total_requests: 0
-      }
-    },
+      have: {
+        // set global controller data
+        data: {
+          title: 'This is title for all pages for this controller',
+          total_requests: 0
+        }
+      },
     
-    methods: {
-      index: function(Response) {
-        // you can also set global controller data from actions
-        this.set('copyright', 'blablabla');
-        // or
-        this.data.total_requests++;
+      methods: {
+        index: function(Response) {
+          // you can also set global controller data from actions
+          this.set('copyright', 'blablabla');
+          // or
+          this.data.total_requests++;
         
-        // by render the view with this.render method, the controller data will pass to this view
-        var content = this.render('index'); // <?-title?>, <?-total_requests?>
+          // by render the view with this.render method, the controller data will pass to this view
+          var content = this.render('index'); // <?-title?>, <?-total_requests?>
         
-        // we may also rewrite globals by set them on render
-        var content = this.render('index', { title: 'This is rewritted title', foo: 'bar' });
+          // we may also rewrite globals by set them on render
+          var content = this.render('index', { title: 'This is rewritted title', foo: 'bar' });
         
-        Response.send(content);
+          Response.send(content);
+        }
       }
-    }
-  });
+    });
 
 ## Events
 
