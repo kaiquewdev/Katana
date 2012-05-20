@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Katana by Shogun147</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/Shogun147/Katana">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Katana</h1>
+            <h2>Easy to use, hmvc scalable web framework for any Node.js samurai</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/Shogun147/Katana/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/Shogun147/Katana/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <h1><a href="https://github.com/Shogun147/Katana">Katana</a></h1>
+
+<p>Easy to use, hmvc scalable web framework for any Node.js samurai, focuses on simplicity, maintainability and performance.</p>
+
+<h2>Features</h2>
+
+<ul>
+<li>Powerful, flexible classical router</li>
+<li>Scalable through HMVC architecture </li>
+<li>Environment based configuration</li>
+<li>Application quick generators</li>
+<li>Cookies and Session support</li>
+<li>Templating, partials support</li>
+<li>Fully non-blocking</li>
+<li>…</li>
+</ul><h2>Installation</h2>
+
+<p>Fastest way to get Katana is to install it with NPM:</p>
+
+<pre><code>$ npm install -g katana
+</code></pre>
+
+<h2>Quick start</h2>
+
+<p>The quickest way to start is to utilize the Katana executable to generate an application:</p>
+
+<pre><code>$ katana create app
+$ cd app
+</code></pre>
+
+<p>The app path is optional and is relative to current path.</p>
+
+<p>Then you are ready to start the server:</p>
+
+<pre><code>$ node app
+</code></pre>
+
+<h3>Basic application layout after creation will look like this:</h3>
+
+<pre><code>.
+├── app.js
+├── application
+│   ├── config
+│   │   ├── development
+│   │   │   ├── application.js
+│   │   │   ├── routing.js
+│   │   │   └── stores.js
+│   │   └── production
+│   ├── controllers
+│   │   └── home.js
+│   ├── models
+│   └── views
+│       └── index.html
+├── modules
+├── public
+│   ├── images
+│   ├── scripts
+│   └── styles
+└── temp
+</code></pre>
+
+<h2>Routing</h2>
+
+<p>Classical routing is one the most powerful futures of Katana framework. It uses uri segments to determine the controller and action for a requested URI.<br>
+So unlike in other Node.js framework you may just add controllers and actions without the need to create routing rules, but also let you write your own rules which may change the path.<br>
+Without any rules, uri path will be treated as: http://katana:8000/<code>controller</code>/<code>action</code>/<code>arg1</code>/../<code>argN</code></p>
+
+<p>So if uri path is: <code>http://katana:8000/account/login</code><br>
+Then <code>controller=account</code> and <code>action=login</code>.</p>
+
+<p>If there no uri segments then default path will be used, <code>home</code> as controller and <code>index</code> as action.</p>
+
+<p>You can also rewrite this path by set the routing rule, for example:</p>
+
+<pre><code>routes: [
+  ['account/(.*)', 'auth/$1']
+]
+</code></pre>
+
+<p>This will set <code>controller=auth</code> and <code>action=login</code>.</p>
+
+<p>Or you may pass this request to mvc module:</p>
+
+<pre><code>routes: [
+  ['account/(.*)', '#auth/actions/$1']
+]
+</code></pre>
+
+<p>The <code>#</code> symbol meen that this request will pass to <code>auth</code> module, <code>controller=actions</code> and <code>action=login</code>.</p>
+
+<p><code>!important:</code> mvc modules may have their own routing rules.</p>
+
+<h2>Modules</h2>
+
+<p>In Katana modules can be used as mvc part or your application or as middleware.</p>
+
+<p>For mvc modules you can use routing the same way as for main mvc.<br>
+Also you can run them as widgets by calling run method: </p>
+
+<pre><code>Module('auth').run('users/list');
+</code></pre>
+
+<p>This will run <code>list</code> action of <code>users</code> controller from <code>auth</code> module.</p>
+
+<p>Middleware modules can listen specific application events and interact as they need.</p>
+
+<p>For example auth module can look like this:</p>
+
+<pre><code>var App = require('katana'); // or global.App
+var User = App.Model('auth:user'); // get user model of auth module
+
+// listen new request event
+App.on('request', function(Request, Response, callback) {
+  Request.user = new User(Request.session);
+
+  callback(); // callback when we're done here, required for application to continue
+});
+</code></pre>
+
+<p>and then in our controller we can access user object as <code>Request.user</code>.</p>
+
+<h2>Controllers</h2>
+
+<p>Controllers are almost most important part of any application, they handle incoming requests and send responses.</p>
+
+<p>A simple controller looks like this:</p>
+
+<pre><code>var App = require('katana');
+
+require('joose'); // load Joose, great class system
+
+// define our controller Class
+Class('Home_Controller', {
+  isa: App.Controller, // extend Katana Core Controller
+
+  methods: {
+    index: function(Response, Request) {
+      Response.send('Hello World!');
+    }
+  }
+});
+
+module.exports = new Home_Controller;
+</code></pre>
+
+<p>And now we can access this <code>index</code> action by opening http://katana:8000/, without any uri path this will use default controller and action from config which are <code>home</code> and <code>index</code>. Also we can access them directly by opening http://katana:8000/<code>home</code>/ with <code>index</code> as default action or http://katana:8000/<code>home</code>/<code>index</code>.</p>
+
+<h2>Models</h2>
+
+<p>Katana did not limit the developer to define a model in some way or to use a specific module. It just autoload all from the models directory of application or a module and store them in a local registry.</p>
+
+<p>You can access them like this:<br></p>
+
+<pre><code>var App = require('katana'); // or global.App
+var News = App.Model('news'); // get model object
+</code></pre>
+
+<p>To get a model from module you need to separate module name and model path with colon <code>:</code>, for example to get <code>user</code> model of <code>auth</code> module call: <code>App.Model('auth:user')</code>.</p>
+
+<p>Model file can look like this:</p>
+
+<pre><code>var App = require('katana');
+var Mongoose = App.Store('mongoose'); // get mongoose connection, look at stores config file
+var Schema = require('mongoose').Schema;
+
+var User = new Schema({
+  username: String,
+  password: String,
+  email: String,
+  signed_at: Date,
+  roles: ['user', 'moderator', 'administrator']
+});
+
+module.exports = Mongoose.model('User', User);
+</code></pre>
+
+<h2>Views</h2>
+
+<p>To render a view you can use a few methods:</p>
+
+<pre><code>var App = require('katana');
+var View = App.View;
+
+require('joose');
+
+Class('Home_Controller', {
+  isa: App.Controller,
+
+  methods: {
+    index: function(Response, Request) {
+      // directly render and send a view content
+      Response.render('index', { title: 'Hello World' }); // this will render index.html file from views
+
+      // get rendered content
+      var content = View.render('index', { title: 'Hello World' });
+      // and latter send response
+      Response.send(content);
+
+      // render a view from module
+      Users.find({}, function(error, users) {
+        if (error) { return Response.send('Error! Blablabla'); }
+
+        // again module name separated by colon, and then path to the view
+        var list = View.render('auth:list', users);
+
+        Response.render('index', { users: list });
+      });
+    }
+  }
+});
+</code></pre>
+
+<p>Controllers can also have their global data, which will be passed for the this.render calls:</p>
+
+<pre><code>var App = require('katana');
+
+require('joose');
+
+Class('Home_Controller', {
+  isa: App.Controller,
+
+  have: {
+    // set global controller data
+    data: {
+      title: 'This is title for all pages for this controller',
+      total_requests: 0
+    }
+  },
+
+  methods: {
+    index: function(Response) {
+      // you can also set global controller data from actions
+      this.set('copyright', 'blablabla');
+      // or
+      this.data.total_requests++;
+
+      // by render the view with this.render method, the controller data will pass to this view
+      var content = this.render('index'); // &lt;?-title?&gt;, &lt;?-total_requests?&gt;
+
+      // we may also rewrite globals by set them on render
+      var content = this.render('index', { title: 'This is rewritted title', foo: 'bar' });
+
+      Response.send(content);
+    }
+  }
+});
+</code></pre>
+
+<h2>Events</h2>
+
+<p>Katana application emit specific events for different steps.
+Few of them are available for middlewares, the others are for bootstrap control flow.</p>
+
+<p>For example, <code>auth</code> module can listen <code>request</code> event to assign a user model for request (see Modules).</p>
+
+<p>Or a <code>chat</code> module which need application server to create a socket.io server.</p>
+
+<pre><code>var App = require('katana');
+
+var socket_io = require('socket.io');
+var io;
+
+// ready event is emitted when Http.Server start listening
+App.on('ready', function(callback) {
+  io = socket_io.listen(App.server);
+
+  io.sockets.on('connection', function (socket) {
+    // …
+  });
+
+  callback();
+});
+</code></pre>
+
+<h2>Contributing</h2>
+
+<p>Anyone interested or who like the framework idea can contribute by sending new ideas, issues or pull requests. Any help would be appreciated.</p>
+
+<h2>License</h2>
+
+<p>The MIT License</p>
+
+<p>Copyright © 2012 D.G. Shogun <a href="mailto:Shogun147@gmail.com">Shogun147@gmail.com</a></p>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/Shogun147">Shogun147</a> can be found on <a href="https://github.com/Shogun147/Katana">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("Katana nodejs node.js framework router modules mvc hmvc controllers async");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
