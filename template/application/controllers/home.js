@@ -1,4 +1,4 @@
-var App = require('katana');
+var App = global.App;
 
 require('joose');
 
