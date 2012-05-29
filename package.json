@@ -1,6 +1,6 @@
 {
   "name": "katana",
-  "description": "HMVC object-oriented web application development framework for any Node.js samurai.",
+  "description": "Easy to use, hmvc scalable web framework for any Node.js samurai.",
   "version": "0.1.0",
   
   "author": "Shogun <Shogun147@gmail.com> (http://github.com/Shogun147)",
@@ -24,8 +24,7 @@
 
   "dependencies": {
 	  "mkdirp": "*", "async": "*", "joose": "*", "logme": "*", "formidable": "*",
-	  "redis": "*", "mongoose": "*", "mysql": "*", "ejs": "*", "crypto": "*",
-	  "validator": "*", "underscore": "*", "qs": "*", "commander": "*"
+	  "ejs": "*", "crypto": "*", "validator": "*", "underscore": "*", "qs": "*", "commander": "*"
   },
   "devDependencies": {
   },
