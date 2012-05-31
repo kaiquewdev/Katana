@@ -25,6 +25,7 @@ The quickest way to start is to utilize the Katana executable to generate an app
 
     $ katana create app
     $ cd app
+    $ npm install
 
 The app path is optional and is relative to current path.
 
