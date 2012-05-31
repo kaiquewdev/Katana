@@ -4,7 +4,10 @@ var mod_root = require('path').normalize(__dirname + '/../');
 var root     = process.cwd() + '/';
 var eol      = require('os').platform() == 'win32' ? '\r\n' : '\n';
 
+var version = require(mod_root + 'package.json').version;
+
 var Path  = require('path');
+var Fs    = require('fs');
 var mkdir = require('mkdirp');
 var copy  = require('../lib/utils').copy_dir;
 
@@ -35,6 +38,17 @@ var create = App.command('create [path]')
 					  mkdir.sync(p, 0777);
 				  }
 				});
+				
+				var pack = {
+					name: 'application-name',
+					version: '0.0.1',
+					private: true,
+					dependencies: {
+						katana: version
+					}
+				};
+				
+				Fs.writeFileSync(path + 'package.json', JSON.stringify(pack));
 				
 				process.stdin.destroy();
 			});
