@@ -44,7 +44,8 @@ var create = App.command('create [path]')
 					version: '0.0.1',
 					private: true,
 					dependencies: {
-						katana: version
+						katana: version,
+						joose: '*'
 					}
 				};
 				

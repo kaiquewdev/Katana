@@ -24,7 +24,8 @@
 
   "dependencies": {
 	  "mkdirp": "*", "async": "*", "joose": "*", "logme": "*", "formidable": "*",
-	  "ejs": "*", "crypto": "*", "validator": "*", "underscore": "*", "qs": "*", "commander": "*"
+	  "ejs": "*", "crypto": "*", "validator": "*", "underscore": "*", "qs": "*", 
+	  "commander": "*", "mime": "*"
   },
   "devDependencies": {
   },
