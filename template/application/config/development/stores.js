@@ -1,5 +1,9 @@
 module.exports = {
-	/*redis: {
+	/*memory: {
+	  type: 'memory'
+	},
+	
+	redis: {
 		type: 'redis',
 		
 		host: '127.0.0.1',
