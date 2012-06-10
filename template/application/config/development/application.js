@@ -31,7 +31,7 @@ module.exports = {
 		key_name: 'session_id',
 		key_length: 32,
 		lifetime: 1000 * 60 * 60 * 24 * 7,
-		store: 'redis',
+		store: 'memory',
 		
 		defaults: {
 			
