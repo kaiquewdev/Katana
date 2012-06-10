@@ -275,26 +275,26 @@ First of all you need to enable sessions in application config file.
 The default session config look like this:
 
     session: {
-    // enable or disable session support
-		enabled: true,
+      // enable or disable session support
+		  enabled: true,
 		
-		// session identifier name for cookie of
-		key_name: 'session_id',
+		  // session identifier name for cookie of
+		  key_name: 'session_id',
 		
-		// session id length
-		key_length: 32,
+		  // session id length
+		  key_length: 32,
 		
-		// lifetime before delete inactive session
-		lifetime: 1000 * 60 * 60 * 24 * 7,
+		  // lifetime before delete inactive session
+		  lifetime: 1000 * 60 * 60 * 24 * 7,
 		
-		// session store, one from config/stores.js
-		store: 'redis',
+		  // session store, one from config/stores.js
+		  store: 'redis',
 		
-    // default data for new sessions
-		defaults: {
+      // default data for new sessions
+		  defaults: {
 		  
-		}
-	}
+		  }
+    }
 
 Once you enable sessions, the session object will be assigned to each request and data will be loaded automatically from the session store.
 Then this object could be accessed as `Request.session`.
