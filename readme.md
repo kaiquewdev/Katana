@@ -265,7 +265,7 @@ This gives you a way to associate data with each particular visitor of your app 
 ### Data stores
 For now Katana support only 2 session data stores (more to come):
 
-* **Memory** (by default): useful for development. Session data is saved in memory at worker-process level, which meens this will not work with cluster. Also, all sessions disappear when app is restarted.
+* **Memory** (by default): useful for development. Session data is saved in memory at worker-process level, which means this will not work with cluster. Also, all sessions disappear when app is restarted.
 
 * **Redis**: Sessions are saved in a redis noSQL database and persist across app restarts. Requires a Redis server or clusters.
 
@@ -275,14 +275,22 @@ First of all you need to enable sessions in application config file.
 The default session config look like this:
 
     session: {
-		enabled: true, // enable or disable session support
+    // enable or disable session support
+		enabled: true,
 		
-		key_name: 'session_id', // session identifier name for cookie of
-		key_length: 32, // session id length
-		lifetime: 1000 * 60 * 60 * 24 * 7, // lifetime before delete inactive session
-		store: 'redis', // session store type
+		// session identifier name for cookie of
+		key_name: 'session_id',
 		
-        // default data for new sessions
+		// session id length
+		key_length: 32,
+		
+		// lifetime before delete inactive session
+		lifetime: 1000 * 60 * 60 * 24 * 7,
+		
+		// session store, one from config/stores.js
+		store: 'redis',
+		
+    // default data for new sessions
 		defaults: {
 		  
 		}
