@@ -241,7 +241,6 @@ Few of them are available for middlewares, the others are for bootstrap control 
 For example, `auth` module can listen `request` event to assign a user model for request (see Modules).
 
 Or a `chat` module which need application server to create a socket.io server.
-
     var App = require('katana');
 
     var socket_io = require('socket.io');
@@ -258,6 +257,59 @@ Or a `chat` module which need application server to create a socket.io server.
 	  callback();
     });
 
+## Sessions
+
+Katana has build in module for supporting sessions.
+This gives you a way to associate data with each particular visitor of your app and have that data persist between requests.
+
+### Data stores
+For now Katana support only 2 session data stores (more to come):
+
+* **Memory** (by default): useful for development. Session data is saved in memory at worker-process level, which meens this will not work with cluster. Also, all sessions disappear when app is restarted.
+
+* **Redis**: Sessions are saved in a redis noSQL database and persist across app restarts. Requires a Redis server or clusters.
+
+### Using sessions
+
+First of all you need to enable sessions in application config file.
+The default session config look like this:
+
+    session: {
+		enabled: true, // enable or disable session support
+		
+		key_name: 'session_id', // session identifier name for cookie of
+		key_length: 32, // session id length
+		lifetime: 1000 * 60 * 60 * 24 * 7, // lifetime before delete inactive session
+		store: 'redis', // session store type
+		
+        // default data for new sessions
+		defaults: {
+		  
+		}
+	}
+
+Once you enable sessions, the session object will be assigned to each request and data will be loaded automatically from the session store.
+Then this object could be accessed as `Request.session`.
+For now available public methods are `set`, `get` and `remove`.
+
+Example counter of user requests:
+
+    index: function(Response, Request) {
+      var Session = Request.session;
+
+      // get current requests count, default 0
+      var counter = Session.get('requests', 0);
+
+      counter++;
+
+      // set new value
+      Session.set('requests', counter);
+
+      // Session data will be automatically saved in store before sending response
+      // Also will save session id in the cookie with key_name from config
+      Response.send('You have visited this page '+ counter +' times');
+    }
+
 ## Contributing
 Anyone interested or who like the framework idea can contribute by sending new ideas, issues or pull requests. Any help would be appreciated.
 
@@ -265,3 +317,31 @@ Anyone interested or who like the framework idea can contribute by sending new i
 The MIT License
 
 Copyright © 2012 D.G. Shogun <Shogun147@gmail.com>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
